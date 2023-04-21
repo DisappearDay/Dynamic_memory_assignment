@@ -82,3 +82,47 @@ int main() {
 		p == NULL;
 	return 0;
 }
+//int main() {
+//
+//	int* p = malloc(40);
+//	if (p == NULL)
+//	{
+//		printf("%s\n", strerror(errno));
+//	}
+//	else
+//	{
+//		int i = 0;
+//		for (i = 1; i < 5; i++)
+//		{
+//			*p++ = i;
+//		}
+//	}
+//	
+//	//free(p);---这是不允许的，因为p的位置已经变化了，free不能释放动态内存开辟的空间的一部分
+//	//p = NULL;
+//
+//
+//	return 0;
+//
+//} 
+
+void GetMemory(char **p)
+{
+	*p = (char*)malloc(100);
+}
+
+void test(void) 
+{
+	char* ptr = NULL;
+	GetMemory(&ptr);
+	strcpy(ptr, "hello,world");
+	printf(ptr);
+
+	free(ptr);
+	ptr = NULL;
+}
+
+int main() {
+	test();
+	return 0;
+}
