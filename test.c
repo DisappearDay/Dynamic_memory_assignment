@@ -126,3 +126,24 @@ int main() {
 	test();
 	return 0;
 }
+char* Get(void)
+{
+	char* p[] = { "hello world" };
+	//该处虽然返回了p的地址，但是p的内容是在Get函数中创建的，出了这个函数，p的内容就被销毁了，
+	//还给操作系统了，所以这是非法的-----返回栈空间的地址问题
+	return p;
+}
+
+void Test(void)
+{
+	char* str = NULL;
+	str = Get();
+	printf(str);
+}
+
+
+int main() {
+
+	Test();
+	return 0;
+}
