@@ -147,3 +147,106 @@ int main() {
 	Test();
 	return 0;
 }
+
+#include <stdio.h>
+#include <stdlib.h>
+//
+// 
+// 
+// 柔性数组写法
+//struct S
+//{
+//	int n;
+//	int arr[];//int arr[0]  未知大小的-柔型数组成员，数组的大小是可以调整的
+//};
+//
+//
+//int main() {
+//	struct S* ps=(struct S*)malloc(sizeof(struct S)+5*sizeof(int));
+//	if (ps != NULL)
+//	{
+//		ps->n = 100;
+//		int i = 0;
+//		for (i = 0; i < 5; i++)
+//		{
+//			ps->arr[i] = i;
+//		}
+//		for (i = 0; i < 5; i++)
+//		{
+//			printf("%d ", ps->arr[i]);
+//		}
+//	}
+//	
+//	struct S* str=realloc(ps,sizeof(struct S)+10*sizeof(int));
+//	if (str != NULL)
+//	{
+//		ps = str;
+//		int j = 0;
+//		for (j = 5; j < 10; j++)
+//		{
+//			ps->arr[j] = j;
+//		}
+//		for (j = 0; j < 10; j++)
+//		{
+//			printf("%d ", ps->arr[j]);
+//		}
+//	}
+//	free(ps);
+//	ps = NULL;
+//
+//
+//	return 0;
+//}
+
+
+
+//动态内存写法
+//
+struct S
+{
+	int n;
+	int* arr;
+};
+
+int main()
+{
+	struct S* ps=(struct S*)malloc(sizeof(struct S));
+	if (ps != NULL)
+	{
+		ps->arr = malloc(5 * sizeof(int));
+		if (ps->arr != NULL)
+		{
+			ps->n = 100;
+			int i = 0;
+			for (i = 0; i < 5; i++)
+			{
+				ps->arr[i] = i;
+			}
+			for (i = 0; i < 5; i++)
+			{
+				printf("%d ", ps->arr[i]);
+			}
+			struct S* str = realloc(ps->arr, 10*sizeof(int));
+			if (str != NULL)
+			{
+				ps->arr = str;
+				int j = 0;
+				for (j = 5; j < 10; j++)
+				{
+					ps->arr[j] = j;
+				}
+				for (j = 0; j < 10; j++)
+				{
+					printf("%d ", ps->arr[j]);
+				}
+			}
+			free(ps->arr);
+			ps->arr = NULL;
+			free(ps);
+			ps = NULL;
+		}
+	}
+
+
+	return 0;
+}
